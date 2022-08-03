@@ -30,7 +30,7 @@
   .one {
     background: thistle;
   }
-
+ 
   .two {
     background: mistyrose;
   }
@@ -42,7 +42,23 @@
 
 <button></button>
 <script>
+  const divs = document.querySelectorAll('div');
+  const button  = document.querySelector('button');
 
+  function logText(e) {
+    //console.log(this.classList.value);
+    //e.stopPropagation(); //stops bubbling. With capture, click on any div gives 'one' (ie top level)
+  }
+  divs.forEach((div) => div.addEventListener('click', logText, {
+    capture: false,//capture down, bubble up
+    once: true //clicks don't get logged, but should get logged one time
+  })); //once: true listens once, then unbinds itself = removeEventListener
+
+  button.addEventListener('click', () => { 
+    console.log('Click!!!');
+  }, {
+    once: true //useful for store checkout
+  });
 </script>
 </body>
 </html>
